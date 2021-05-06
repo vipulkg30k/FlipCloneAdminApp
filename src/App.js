@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./containers/Home";
 import Signin from "./containers/Signin";
 import Signup from "./containers/Signup";
-import { isUserLoggedIn } from "./actions";
+import { getInitialData, isUserLoggedIn } from "./actions";
 import PrivateRoute from "./components/HOC/PrivateRoute";
 import { useDispatch, useSelector } from "react-redux";
 import Products from "./containers/Products";
@@ -19,6 +19,7 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
+    dispatch(getInitialData());
   }, []);
 
   return (

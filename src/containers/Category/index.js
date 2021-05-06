@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Modal, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addCategory, getAllCategory } from "../../actions";
 import Layout from "../../components/Layout";
 import Input from '../../components/UI/Input';
+import Modal from '../../components/UI/Modal';
 
 /**
  * @author
@@ -18,19 +19,15 @@ const Category = (props) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("Category.js");
-    dispatch(getAllCategory());
-  }, []);
-
   const handleClose = () => {
       const form = new FormData();
 
       form.append('name', categoryName);
       form.append('parentId', parentCategoryId);
       form.append('categoryImage', categoryImage);
-
       dispatch(addCategory(form));
+      setCategoryName('');
+      setParentCategoryId('');
 
     //   const cat = {
     //       categoryName,
@@ -93,17 +90,16 @@ const Category = (props) => {
         </Row>
       </Container>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Category</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <Input
+      <Modal
+        show={show}
+        handleClose={handleClose}
+        modalTitle={"Add New Category"}
+      >
+        <Input
                 value={categoryName}
                 placeholder={'Category Name'}
                 onChange={(e) => setCategoryName(e.target.value)}
             />
-
             <select 
                 className='form-control' 
                 value={parentCategoryId}
@@ -117,13 +113,9 @@ const Category = (props) => {
 
             <input type="file" name="CategoryImage" onChange={handleCategoryImage} />
 
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
+
+    
     </Layout>
   );
 };
