@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use((res) => {
 }, (error) => {
     console.log(error.response);
     const { status } = error.response;
-    if(status === 500 || status === 400){
+    if(status === 500){
         store.dispatch({ type: authConstants.LOGOUT_SUCCESS })
     }
     return Promise.reject(error);
