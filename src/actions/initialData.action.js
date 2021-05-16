@@ -1,10 +1,14 @@
-import axios from '../helpers/axios';
-import { categoryConstants, initialDataConstants, productConstants } from "./constants"
+import { 
+    initialDataConstants, 
+    categoryConstants, 
+    productConstants 
+} from "./constants";
+import axios from "../helpers/axios";
 
 export const getInitialData = () => {
     return async dispatch => {
-
-        const res = await axios.post('/initialdata');
+        
+        const res = await axios.post(`/initialData`);
         if(res.status === 200){
             const { categories, products } = res.data;
             dispatch({
@@ -14,9 +18,8 @@ export const getInitialData = () => {
             dispatch({
                 type: productConstants.GET_ALL_PRODUCTS_SUCCESS,
                 payload: { products }
-            })
+            });
         }
-        console.log(res);
-        
+        console.log(res)
     }
 }

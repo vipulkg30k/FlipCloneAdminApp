@@ -159,6 +159,7 @@ const Category = (props) => {
             form.append('type', item.type);
         });
         dispatch(updateCategories(form));
+        setUpdateCategoryModal(false)
         
     }
 
@@ -181,9 +182,7 @@ const Category = (props) => {
                     }
                 });
         }
-
         setDeleteCategoryModal(false);
-
 
     }
 
